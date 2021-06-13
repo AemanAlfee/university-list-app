@@ -4,10 +4,16 @@
   width: 45%;
   margin: 1%;
   text-align: center;
+  background-color: #cccccc;
 }
 
 .align-center {
   text-align: center;
+}
+
+.link {
+  color: blue;
+  font-weight: bold;
 }
 
 .page-center {
