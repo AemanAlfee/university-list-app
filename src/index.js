@@ -1,11 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import Universities from "./Universities"
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import "./index.css";
+import store from "./store";
+import Universities from "./Universities";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Universities />
+    <Provider store={store}>
+      <Universities />
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

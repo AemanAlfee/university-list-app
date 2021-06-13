@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from "react";
+import { fetchNextUniversities } from "../actions";
 import constants from "../constants";
-import axios from "axios";
 import Container from "@material-ui/core/Container";
 import UniversityCard from "./UniversityCard";
 import "./University.css";
 import PaginationComp from "./PaginationComp";
+import { useDispatch, useSelector } from "react-redux";
 
 const Universities = () => {
-  const { apiRoute, pageLimit, totalHeader } = constants;
-  const [total, setTotal] = useState(0);
-  const [universities, setUniversities] = useState([]);
+  const { pageLimit, totalHeader } = constants;
+  const universitiesData = useSelector(
+    (state) => (state && state.universities) || {}
+  );
+  const {
+    data: universities = [],
+    headers: { [totalHeader]: total } = {}
+  } = universitiesData;
 
   const params = new URLSearchParams(window?.location?.search).get("page");
 
   const [page, setPage] = useState(Number(params) || 1);
 
+  const dispatch = useDispatch();
+
   const handlePagination = (e, page) => {
-    window.history.pushState({}, "Universities", `/?page=${page}`);
     setPage(page);
+    window.history.pushState({}, "Universities", `/?page=${page}`);
   };
 
   useEffect(() => {
-    const handleUniversityList = async () => {
-      const url = `${apiRoute}?_page=${page}&_limit=${pageLimit}`;
-      axios.get(url).then((response) => {
-        setTotal(Number(response.headers[totalHeader]));
-        setUniversities(response.data);
-      });
-    };
-    handleUniversityList();
-  }, [page, apiRoute, pageLimit, totalHeader]);
+    dispatch(fetchNextUniversities({ _page: page, _limit: pageLimit }));
+  }, [page, dispatch, pageLimit]);
+
   return (
     <Container>
       <h2 className="align-center">Universities</h2>
