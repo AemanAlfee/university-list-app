@@ -13,14 +13,11 @@ const Universities = () => {
   const universitiesData = useSelector(
     (state) => (state && state.universities) || {}
   );
-  const {
-    data: universities = [],
-    headers: { [totalHeader]: total } = {}
-  } = universitiesData;
-
   const params = new URLSearchParams(window?.location?.search).get("page");
 
   const [page, setPage] = useState(Number(params) || 1);
+  const { data: universities = [], headers: { [totalHeader]: total } = {} } =
+    universitiesData[page] || {};
 
   const dispatch = useDispatch();
 
@@ -30,13 +27,15 @@ const Universities = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchNextUniversities({ _page: page, _limit: pageLimit }));
-  }, [page, dispatch, pageLimit]);
+    if (!universitiesData[page]) {
+      dispatch(fetchNextUniversities({ _page: page, _limit: pageLimit }));
+    }
+  }, [page, dispatch, pageLimit, universitiesData]);
 
   return (
     <Container>
       <h2 className="align-center">Universities</h2>
-      {!!universities.length ? (
+      {!!universities && universities.length ? (
         <>
           {universities.map((university, index) => (
             <React.Fragment key={`unversity-${index + 1}`}>

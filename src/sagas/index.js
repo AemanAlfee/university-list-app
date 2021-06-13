@@ -12,7 +12,10 @@ const fetchUniversties = function* fetchUniversties(action) {
     const universities = yield call(fetchUniverstiesData, _page, _limit);
     yield put({
       type: Universities.FETCH_UNIVERSITIES_SUCCESS,
-      universities
+      payload: {
+        universities,
+        _page
+      }
     });
   } catch (error) {
     yield put({ type: Universities.FETCH_UNIVERSITIES_FAILURE, error });
