@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { fetchNextUniversities } from "../actions";
 import constants from "../constants";
-import Container from "@material-ui/core/Container";
+import { Container, CircularProgress } from "@material-ui/core";
+
 import UniversityCard from "./UniversityCard";
 import "./University.css";
 import PaginationComp from "./PaginationComp";
@@ -35,21 +36,28 @@ const Universities = () => {
   return (
     <Container>
       <h2 className="align-center">Universities</h2>
-      {!!universities.length &&
-        universities.map((university, index) => (
-          <React.Fragment key={`unversity-${index + 1}`}>
-            <UniversityCard
-              university={university}
-              index={(page - 1) * pageLimit + index}
-            />
-          </React.Fragment>
-        ))}
-      <PaginationComp
-        total={total}
-        limit={pageLimit}
-        page={page}
-        handlePagination={handlePagination}
-      />
+      {!!universities.length ? (
+        <>
+          {universities.map((university, index) => (
+            <React.Fragment key={`unversity-${index + 1}`}>
+              <UniversityCard
+                university={university}
+                index={(page - 1) * pageLimit + index}
+              />
+            </React.Fragment>
+          ))}
+          <PaginationComp
+            total={total}
+            limit={pageLimit}
+            page={page}
+            handlePagination={handlePagination}
+          />
+        </>
+      ) : (
+        <div className="page-center">
+          <CircularProgress />
+        </div>
+      )}
     </Container>
   );
 };
