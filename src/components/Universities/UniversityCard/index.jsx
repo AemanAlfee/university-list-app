@@ -9,20 +9,20 @@ const UniversityCard = ({ university, index }) => {
     web_pages: [link = ""]
   } = university;
   let url = link;
-  if (!/^(https|http)?:\/\//i.test(url)) url = "http://" + url;
+  if (!/^https?:\/\//i.test(url) || !/^http?:\/\//i.test(url)) {
+    url = "http://" + url;
+  }
   return (
     <Card className="card" variant="outlined">
       <CardContent>
-        <Typography gutterBottom variant="p" component="p">
+        <Typography gutterBottom variant="h5" component="h2">
           {index + 1}
         </Typography>
         <Typography
-          className="link"
           variant="body2"
           color="textSecondary"
           component="a"
           href={url}
-          target="_blank"
         >
           {name}
         </Typography>

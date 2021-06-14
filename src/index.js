@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import "./index.css";
 import store from "./store";
-import Universities from "./Universities";
+import Universities from "./components/Universities";
 
 ReactDOM.render(
   <React.StrictMode>
