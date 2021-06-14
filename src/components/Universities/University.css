@@ -4,6 +4,12 @@
   width: 45%;
   margin: 1%;
   text-align: center;
+  background-color: #cccccc;
+}
+
+.link {
+  color: blue;
+  font-weight: bold;
 }
 
 .align-center {

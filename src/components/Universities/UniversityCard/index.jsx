@@ -15,10 +15,11 @@ const UniversityCard = ({ university, index }) => {
   return (
     <Card className="card" variant="outlined">
       <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
+        <Typography gutterBottom variant="p" component="p">
           {index + 1}
         </Typography>
         <Typography
+          className="link"
           variant="body2"
           color="textSecondary"
           component="a"
